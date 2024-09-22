@@ -1,0 +1,294 @@
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.help-center {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-size: 2em;
+    margin: 0;
+}
+
+.search-bar {
+    margin-bottom: 20px;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+.suggestions {
+    margin-top: 10px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.faq {
+    margin-bottom: 20px;
+}
+
+.accordion {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    border-radius: 4px;
+    outline: none;
+    font-size: 1em;
+}
+
+.panel {
+    display: none;
+    padding: 0 10px;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-top: none;
+}
+
+.resources {
+    margin-bottom: 20px;
+}
+
+.resource-category {
+    margin-bottom: 15px;
+}
+
+.resource-category h3 {
+    margin: 0;
+}
+
+.resource-category ul {
+    list-style: none;
+    padding: 0;
+}
+
+.resource-category li a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.resource-category li a:hover {
+    text-decoration: underline;
+}
+
+.chatbot {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.chatbot button {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.contact {
+    margin-top: 20px;
+}
+
+.contact form {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact label {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.contact select, .contact textarea {
+    margin-top: 5px;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+.contact button {
+    margin-top: 10px;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.contact button:hover {
+    background: #0056b3;
+}
+</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help Center for Employers</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="help-center">
+        <header>
+            <h1>Help Center</h1>
+            <p>Your go-to resource for support and information</p>
+        </header>
+        
+        <!-- Search Bar -->
+        <div class="search-bar">
+            <input type="text" id="search" placeholder="Search for help..." oninput="searchHelp()">
+            <div id="suggestions" class="suggestions"></div>
+        </div>
+        
+        <!-- FAQ Accordion -->
+        <section class="faq">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <button class="accordion">What is the help center?</button>
+                <div class="panel">
+                    <p>The help center provides resources and support for employers...</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="accordion">How do I contact support?</button>
+                <div class="panel">
+                    <p>You can contact support through the form below or via email...</p>
+                </div>
+            </div>
+            <!-- Add more FAQs as needed -->
+        </section>
+        
+        <!-- Resource Dashboard -->
+        <section class="resources">
+            <h2>Resource Dashboard</h2>
+            <div class="resource-category">
+                <h3>Guides</h3>
+                <ul>
+                    <li><a href="#">How to manage employees</a></li>
+                    <li><a href="#">Creating effective job descriptions</a></li>
+                </ul>
+            </div>
+            <div class="resource-category">
+                <h3>Tutorials</h3>
+                <ul>
+                    <li><a href="#">Setting up your account</a></li>
+                    <li><a href="#">Using the dashboard</a></li>
+                </ul>
+            </div>
+            <div class="resource-category">
+                <h3>Videos</h3>
+                <ul>
+                    <li><a href="#">Overview of features</a></li>
+                    <li><a href="#">Best practices for hiring</a></li>
+                </ul>
+            </div>
+        </section>
+        
+        <!-- Support Chatbot -->
+        <div class="chatbot">
+            <button onclick="openChat()">Chat with us</button>
+        </div>
+        
+        <!-- Contact Form -->
+        <section class="contact">
+            <h2>Contact Us</h2>
+            <form id="contact-form">
+                <label for="issue">Issue Type:</label>
+                <select id="issue" onchange="updateFormFields()">
+                    <option value="">Select an issue</option>
+                    <option value="technical">Technical Support</option>
+                    <option value="billing">Billing Inquiry</option>
+                    <option value="general">General Question</option>
+                </select>
+                
+                <div id="additional-fields"></div>
+                
+                <label for="message">Message:</label>
+                <textarea id="message" rows="5" required></textarea>
+                
+                <button type="submit">Submit</button>
+            </form>
+        </section>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
+<script>
+    // FAQ Accordion functionality
+document.querySelectorAll('.accordion').forEach(button => {
+    button.addEventListener('click', () => {
+        const panel = button.nextElementSibling;
+        button.classList.toggle('active');
+        panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+    });
+});
+
+// Search Suggestions functionality
+const suggestions = [
+    'How to manage employees',
+    'Creating effective job descriptions',
+    'Setting up your account',
+    'Using the dashboard'
+];
+
+function searchHelp() {
+    const query = document.getElementById('search').value.toLowerCase();
+    const filteredSuggestions = suggestions.filter(s => s.toLowerCase().includes(query));
+    const suggestionsContainer = document.getElementById('suggestions');
+    suggestionsContainer.innerHTML = '';
+    
+    filteredSuggestions.forEach(suggestion => {
+        const div = document.createElement('div');
+        div.textContent = suggestion;
+        div.className = 'suggestion-item';
+        div.onclick = () => document.getElementById('search').value = suggestion;
+        suggestionsContainer.appendChild(div);
+    });
+}
+
+// Dynamic Contact Form Fields
+function updateFormFields() {
+    const issue = document.getElementById('issue').value;
+    const additionalFields = document.getElementById('additional-fields');
+    additionalFields.innerHTML = '';
+    
+    if (issue === 'technical') {
+        additionalFields.innerHTML = '<label for="details">Details:</label><textarea id="details" rows="4"></textarea>';
+    } else if (issue === 'billing') {
+        additionalFields.innerHTML = '<label for="invoice">Invoice Number:</label><input type="text" id="invoice">';
+    } else if (issue === 'general') {
+        additionalFields.innerHTML = '<label for="subject">Subject:</label><input type="text" id="subject">';
+    }
+}
+
+// Open Chatbot (Placeholder function)
+function openChat() {
+    alert('Chatbot feature is coming soon!');
+}
+</script>

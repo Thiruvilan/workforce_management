@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Header -->
+        <header class="header">
+            <h1>Employee Dashboard</h1>
+        </header>
+
+        <!-- Dashboard Components (Row-Wise Navigation) -->
+        <div class="dashboard-components">
+            <div class="component-row" onclick="navigateToPage('empshift.html')">
+                <h2>Shift Schedule</h2>
+                <p>View your scheduled shifts</p>
+            </div>
+            <div class="component-row" onclick="navigateToPage('empattendance.html')">
+                <h2>Attendance Tracking</h2>
+                <p>Track your attendance in real time</p>
+            </div>
+            <div class="component-row" onclick="navigateToPage('payrollemp.html')">
+                <h2>Payroll</h2>
+                <p>View payroll details and history</p>
+            </div>
+            <div class="component-row" onclick="navigateToPage('performance-metrics.html')">
+                <h2>Performance Metrics</h2>
+                <p>Analyze your performance statistics</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+<style>
+    /* General styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5efeb;
+    margin: 0;
+    padding: 0;
+}
+
+.dashboard {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+header {
+    background-color: #2f4156;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px 10px 0 0;
+}
+
+h1 {
+    margin: 0;
+}
+
+.dashboard-components {
+    margin-top: 20px;
+}
+
+.component-row {
+    background-color: #c8d9e6;
+    color: #2f4156;
+    padding: 20px;
+    margin: 15px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.component-row:hover {
+    background-color: #567c8d;
+    color: white;
+}
+
+.component-row h2 {
+    margin: 0;
+}
+
+.component-row p {
+    margin: 0;
+    font-size: 0.9em;
+    color: #567c8d;
+}
+
+.component-row:hover p {
+    color: white;
+}
+
+</style> <script>
+    // Navigation to other pages
+function navigateToPage(page) {
+    window.location.href = page;
+}
+
+</script>

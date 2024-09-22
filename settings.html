@@ -1,0 +1,213 @@
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark-mode {
+    background-color: #333;
+    color: #f4f4f4;
+}
+
+header {
+    background-color: #2f4156;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+}
+
+main {
+    padding: 20px;
+}
+
+.settings-section, .permissions-section {
+    margin-bottom: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+h2 {
+    margin-top: 0;
+}
+
+.setting-option, .permission-option {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.setting-option img, .permission-option img {
+    margin-right: 10px;
+}
+
+.setting-option a, .permission-option span {
+    text-decoration: none;
+    color: #007bff;
+    font-size: 1.2em;
+    margin: 0;
+}
+
+.setting-option a:hover, .permission-option span:hover {
+    text-decoration: underline;
+}
+
+.permission-option {
+    display: flex;
+    align-items: center;
+}
+
+.permission-option .switch {
+    position: relative;
+    display: inline-block;
+    width: 34px;
+    height: 20px;
+    margin: 0 10px;
+}
+
+.permission-option .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.permission-option .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 20px;
+}
+
+.permission-option .slider:before {
+    position: absolute;
+    content: "";
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+}
+
+.permission-option input:checked + .slider {
+    background-color: #007bff;
+}
+
+.permission-option input:checked + .slider:before {
+    transform: translateX(14px);
+}
+</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
+    
+</head>
+<body>
+    <header>
+        <h1>Settings Dashboard</h1>
+    </header>
+
+    <main>
+        <section class="settings-section">
+            <h2>General Settings</h2>
+            <div class="setting-option">
+               
+                <a href="#help">Help</a>
+            </div>
+            <div class="setting-option">
+            
+                <a href="#about-me">About Me</a>
+            </div>
+            <div class="setting-option">
+               
+                <a href="#theme" onclick="toggleTheme()">Toggle Theme</a>
+            </div>
+            <div class="setting-option">
+               
+                <a href="#update">Update</a>
+            </div>
+        </section>
+
+        <section class="permissions-section">
+            <h2>Permissions</h2>
+            <div class="permission-option">
+                
+                <label class="switch" >
+                    <input type="checkbox" id="call-permission"/>
+                    <span class="slider"></span>
+                   
+                </label>
+                <span>Call Permission</span>
+            </div>
+            <div class="permission-option">
+                
+                <label class="switch">
+                    <input type="checkbox" id="sms-permission"/>
+                    <span class="slider"></span>
+                </label>
+                <span>SMS Permission</span>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+    const callPermissionCheckbox = document.getElementById('call-permission');
+    const smsPermissionCheckbox = document.getElementById('sms-permission');
+
+    // Initialize permissions based on saved state
+    callPermissionCheckbox.checked = localStorage.getItem('callPermission') === 'true';
+    smsPermissionCheckbox.checked = localStorage.getItem('smsPermission') === 'true';
+
+    // Event listeners for permission checkboxes
+    callPermissionCheckbox.addEventListener('change', () => {
+        localStorage.setItem('callPermission', callPermissionCheckbox.checked);
+    });
+
+    smsPermissionCheckbox.addEventListener('change', () => {
+        localStorage.setItem('smsPermission', smsPermissionCheckbox.checked);
+    });
+});
+
+function toggleTheme() {
+    const body = document.body;
+    if (body.classList.contains('dark-mode')) {
+        body.classList.remove('dark-mode');
+        localStorage.setItem('theme', 'light');
+    } else {
+        body.classList.add('dark-mode');
+        localStorage.setItem('theme', 'dark');
+    }
+}
+
+// Apply saved theme on page load
+document.addEventListener('DOMContentLoaded', () => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+    }
+});
+</script>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Attendance Tracking</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h2, h3 {
+            text-align: center;
+        }
+
+        .attendance-form {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        form {
+            display: inline-block;
+            text-align: left;
+        }
+
+        form label, form input, form select {
+            display: block;
+            margin: 5px 0;
+        }
+
+        form button {
+            margin-top: 10px;
+            padding: 5px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        #attendance-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        #attendance-table th, #attendance-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        #attendance-table th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .delete-button {
+            background-color: red;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h2>Real-Time Attendance Tracking</h2>
+
+    <div class="attendance-form">
+        <h3>Add Attendance</h3>
+        <form id="attendance-form">
+            <label for="name">Employee Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="employeeId">Employee ID:</label>
+            <input type="text" id="employeeId" name="employeeId" required>
+
+            <label for="timeIn">Time In:</label>
+            <input type="time" id="timeIn" name="timeIn" required>
+
+            <label for="status">Status:</label>
+            <select id="status" name="status" required>
+                <option value="Present">Present</option>
+                <option value="Absent">Absent</option>
+            </select>
+
+            <label for="timeOut">Time Out (Optional):</label>
+            <input type="time" id="timeOut" name="timeOut">
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <div id="attendance-container">
+        <h3>Employee Attendance:</h3>
+        <table id="attendance-table">
+            <thead>
+                <tr>
+                    <th>Employee Name</th>
+                    <th>Employee ID</th>
+                    <th>Time In</th>
+                    <th>Status</th>
+                    <th>Time Out</th>
+                    <th>Working Hours</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="attendance-body">
+                <!-- Attendance data will be dynamically populated here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // In-memory array to store attendance records
+        let attendanceData = [];
+
+        // Function to render the table with attendance data
+        function renderAttendanceTable() {
+            const attendanceBody = document.getElementById('attendance-body');
+            attendanceBody.innerHTML = ''; // Clear previous data
+
+            attendanceData.forEach((employee, index) => {
+                const row = document.createElement('tr');
+
+                row.innerHTML = `
+                    <td>${employee.name}</td>
+                    <td>${employee.employeeId}</td>
+                    <td>${employee.timeIn}</td>
+                    <td>${employee.status}</td>
+                    <td>${employee.timeOut || ''}</td>
+                    <td>${employee.workingHours || ''}</td>
+                    <td>
+                        <button class="delete-button" onclick="deleteAttendance(${index})">Delete</button>
+                    </td>
+                `;
+
+                attendanceBody.appendChild(row);
+            });
+        }
+
+        // Function to delete an attendance record by index
+        function deleteAttendance(index) {
+            attendanceData.splice(index, 1); // Remove the record from the array
+            renderAttendanceTable(); // Re-render the table after deletion
+        }
+
+        // Function to calculate working hours (Time Out - Time In)
+        function calculateWorkingHours(timeIn, timeOut) {
+            if (!timeOut) return ''; // If no timeOut is provided, skip calculation
+
+            const inTime = new Date(`1970-01-01T${timeIn}:00`);
+            const outTime = new Date(`1970-01-01T${timeOut}:00`);
+
+            const diffMs = outTime - inTime; // Time difference in milliseconds
+            const diffHrs = Math.floor(diffMs / (1000 * 60 * 60)); // Convert to hours
+            const diffMins = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60)); // Remaining minutes
+
+            return `${diffHrs}h ${diffMins}m`; // Return formatted working hours
+        }
+
+        // Handle form submission and add new attendance record to the array
+        document.getElementById('attendance-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const employeeId = document.getElementById('employeeId').value;
+            const timeIn = document.getElementById('timeIn').value;
+            const status = document.getElementById('status').value;
+            const timeOut = document.getElementById('timeOut').value;
+
+            // Calculate working hours if Time Out is provided
+            const workingHours = timeOut ? calculateWorkingHours(timeIn, timeOut) : null;
+
+            // Add new record to the array
+            attendanceData.push({
+                name,
+                employeeId,
+                timeIn,
+                status,
+                timeOut: timeOut || null, // Optional field
+                workingHours: workingHours || null // Automatically calculated or null if no Time Out
+            });
+
+            // Render the updated table
+            renderAttendanceTable();
+
+            // Clear form inputs
+            document.getElementById('attendance-form').reset();
+        });
+
+        // Initial render when the page loads (empty table initially)
+        renderAttendanceTable();
+    </script>
+</body>
+</html>

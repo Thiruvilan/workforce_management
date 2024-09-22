@@ -1,0 +1,151 @@
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.notification-center {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-size: 2em;
+    margin: 0;
+}
+
+.notification-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.notification-controls input, .notification-controls select {
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+.notification-feed {
+    margin-top: 20px;
+}
+
+.notification-item {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    padding: 10px;
+    position: relative;
+}
+
+.notification-item .notification-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.notification-item .notification-header .notification-type {
+    font-weight: bold;
+}
+
+.notification-item .notification-header .mark-read {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.notification-item .notification-header .mark-read:hover {
+    background: #0056b3;
+}
+
+.notification-item .notification-body {
+    margin-top: 10px;
+}
+
+.notification-item .notification-body .view-details {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.notification-item .notification-body .view-details:hover {
+    text-decoration: underline;
+}
+</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification Center</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="notification-center">
+        <header>
+            <h1>Notification Center</h1>
+        </header>
+        
+        <!-- Filters and Search Bar -->
+        <div class="notification-controls">
+            <input type="text" id="search" placeholder="Search notifications..." oninput="searchNotifications()">
+            <select id="filter" onchange="filterNotifications()">
+                <option value="">All</option>
+                <option value="alerts">Alerts</option>
+                <option value="messages">Messages</option>
+                <option value="updates">Updates</option>
+            </select>
+        </div>
+        
+        <!-- Notification Feed -->
+        <div class="notification-feed">
+            <!-- Notification Item -->
+            <div class="notification-item" data-type="alerts">
+                <div class="notification-header">
+                    <span class="notification-type">Alert</span>
+                    <button class="mark-read" onclick="markAsRead(this)">Mark as Read</button>
+                </div>
+                <div class="notification-body">
+                    <p>This is an alert notification. <a href="#" class="view-details" onclick="viewDetails(event)">View details</a></p>
+                </div>
+            </div>
+            <!-- Add more notification items here -->
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+<script>
+    // Example notifications data
+const notifications = [
+    { type: 'alerts', message: 'System maintenance scheduled for tonight.', details: 'The system will be down from 10 PM to 2 AM.' },
+    { type: 'messages', message: 'New message from HR.', details: 'Please review the attached document.' },
+    { type: 'updates', message: 'New features added to the dashboard.', details: 'Check out the latest updates in the dashboard.' }
+];
+
+// Populate notifications (for demo purposes)
+const notificationFeed = document.querySelector('.notification-feed');
+
+notifications.forEach(notification => {
+    const div = document.createElement('div');
+    div.className = 'notification-item';
+    div.dataset.type = notification.type;
+    div.innerHTML = `
+        <div class="notification-header">
+            <span class="notification-type">${notification.type.charAt(0).toUpperCase() + notification.type.slice
+</script>

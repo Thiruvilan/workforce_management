@@ -1,0 +1,175 @@
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 20px;
+    }
+    
+    .container {
+        max-width: 800px;
+        margin: auto;
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    h1 {
+        text-align: center;
+    }
+    
+    .profile {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+    
+    #profileImage {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        margin-right: 20px;
+        object-fit: cover;
+    }
+    
+    .profile-info {
+        flex: 1;
+    }
+    
+    h2 {
+        margin: 0;
+    }
+    
+    .metrics {
+        margin-top: 20px;
+    }
+    
+    .metric-box {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+    }
+    
+    .metric {
+        background: #e7f0fe;
+        border: 1px solid #4e8ee1;
+        border-radius: 5px;
+        padding: 10px 15px;
+        text-align: center;
+        flex: 1;
+        margin: 0 10px;
+    }
+    
+    .form-section {
+        margin-top: 20px;
+        text-align: center;
+    }
+    
+    input[type="file"] {
+        margin-bottom: 10px;
+    }
+    
+    button {
+        padding: 10px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    
+    button:hover {
+        background-color: #218838;
+    }
+    
+    #certificateMessage {
+        margin-top: 10px;
+        font-weight: bold;
+    }
+</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager Profile</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Manager Profile</h1>
+        <div class="profile">
+            <img id="profileImage" src="default-profile.png" alt="Manager Image" />
+            <div class="profile-info">
+                <h2 id="managerName">Alice Smith</h2>
+                <p><i class="fas fa-id-badge"></i> <strong>Manager ID:</strong> </p>
+                <p><i class="fas fa-phone-alt"></i> <strong>Phone:</strong> </p>
+                <p><i class="fas fa-envelope"></i> <strong>Email:</strong></p>
+                <p><i class="fas fa-briefcase"></i> <strong>Department:</strong> </p>
+                <p><i class="fas fa-users"></i> <strong>Team Size:</strong> </p>
+            </div>
+        </div>
+
+        <div class="metrics">
+            <h3><i class="fas fa-chart-line"></i> Performance Metrics</h3>
+            <div class="metric-box">
+                <div class="metric">
+                    <p><strong>Project Completion Rate:</strong></p>
+                    <p id="completionRate">85%</p>
+                </div>
+                <div class="metric">
+                    <p><strong>Employee Satisfaction:</strong></p>
+                    <p id="satisfactionRate">90%</p>
+                </div>
+                <div class="metric">
+                    <p><strong>Attendance Rate:</strong></p>
+                    <p id="attendanceRate">95%</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h3><i class="fas fa-upload"></i> Update Profile Picture</h3>
+            <input type="file" id="imageInput" accept="image/*">
+            <button id="updateImageBtn">Update Image</button>
+        </div>
+
+        <div class="form-section">
+            <h3><i class="fas fa-certificate"></i> Update Certifications</h3>
+            <input type="file" id="certificateInput" accept=".pdf, .jpg, .png">
+            <button id="updateCertificateBtn">Upload Certification</button>
+            <p id="certificateMessage"></p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+<script>
+    document.getElementById('updateImageBtn').addEventListener('click', function() {
+        const imageInput = document.getElementById('imageInput');
+        const profileImage = document.getElementById('profileImage');
+    
+        if (imageInput.files && imageInput.files[0]) {
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                profileImage.src = e.target.result;
+            };
+    
+            reader.readAsDataURL(imageInput.files[0]);
+        }
+    });
+    
+    document.getElementById('updateCertificateBtn').addEventListener('click', function() {
+        const certificateInput = document.getElementById('certificateInput');
+        const certificateMessage = document.getElementById('certificateMessage');
+    
+        if (certificateInput.files.length > 0) {
+            certificateMessage.textContent = 'Certification uploaded successfully!';
+        } else {
+            certificateMessage.textContent = 'Please select a certification to upload.';
+        }
+    });
+</script>

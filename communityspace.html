@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Space</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: rgb(179, 69, 179);
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #333;
+        }
+        nav a {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            text-align: center;
+        }
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+        }
+        .feed, .profile, .discussions {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .feed h2, .profile h2, .discussions h2 {
+            margin-top: 0;
+        }
+        .post {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+        .post:last-child {
+            border-bottom: none;
+        }
+        .profile {
+            display: flex;
+            align-items: center;
+        }
+        .profile img {
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+        .profile-info {
+            max-width: 600px;
+        }
+        .discussions ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .discussions li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .discussions li:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Community Space</h1>
+    </header>
+    
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">Community Feed</a>
+        <a href="#">Profile</a>
+        <a href="#">Discussions</a>
+        <a href="#">Messages</a>
+    </nav>
+
+    <div class="container">
+
+        <!-- Community Feed Section -->
+        <div class="feed">
+            <h2>Community Feed</h2>
+            <div class="post">
+                <h3>John Doe</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet, nulla vel vehicula aliquet, elit orci pharetra ligula, sed dignissim elit eros eu sapien.</p>
+            </div>
+            <div class="post">
+                <h3>Jane Smith</h3>
+                <p>Vestibulum vulputate ligula euismod, laoreet nisl vel, ullamcorper mi. Proin ac dui at turpis pharetra facilisis.</p>
+            </div>
+            <!-- More posts can be added here -->
+        </div>
+
+        <!-- User Profile Section -->
+        <div class="profile">
+            <img src="https://via.placeholder.com/100" alt="User Profile Picture">
+            <div class="profile-info">
+                <h2>Jane Smith</h2>
+                <p>Jane is a software developer with a passion for community building. She loves contributing to open-source projects and engaging with fellow developers.</p>
+                <p><strong>Location:</strong> New York, USA</p>
+                <p><strong>Interests:</strong> Coding, Music, Hiking</p>
+            </div>
+        </div>
+
+        <!-- Discussions Section -->
+        <div class="discussions">
+            <h2>Recent Discussions</h2>
+            <ul>
+                <li>
+                    <strong>Tech Innovations:</strong> What are the latest trends in technology?
+                </li>
+                <li>
+                    <strong>Community Events:</strong> Upcoming events in our community this month.
+                </li>
+                <li>
+                    <strong>Feedback Needed:</strong> Share your thoughts on our new community features.
+                </li>
+                <!-- More discussions can be added here -->
+            </ul>
+        </div>
+
+    </div>
+
+</body>
+</html>

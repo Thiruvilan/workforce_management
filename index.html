@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Tracking</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="text"], input[type="date"], select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Attendance Tracking Form</h2>
+    <form id="attendanceForm">
+        <label for="employee_name">Employee Name:</label>
+        <input type="text" id="employee_name" name="employee_name" required>
+
+        <label for="attendance_date">Date:</label>
+        <input type="date" id="attendance_date" name="attendance_date" required>
+
+        <label for="status">Attendance Status:</label>
+        <select id="status" name="status">
+            <option value="Present">Present</option>
+            <option value="Absent">Absent</option>
+            <option value="Leave">Leave</option>
+        </select>
+
+        <input type="submit" value="Submit Attendance">
+    </form>
+
+    <div id="message"></div>
+
+    <script>
+        document.getElementById('attendanceForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const employee_name = document.getElementById('employee_name').value;
+            const attendance_date = document.getElementById('attendance_date').value;
+            const status = document.getElementById('status').value;
+
+            const response = await fetch('/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ employee_name, attendance_date, status })
+            });
+
+            const result = await response.json();
+            document.getElementById('message').textContent = result.message;
+        });
+    </script>
+</div>
+
+</body>
+</html>
+<script>
+    const express = require('express');
+const bodyParser = require('body-parser');
+const mysql = require('mysql2');
+
+// Create Express app
+const app = express();
+
+// Middleware to parse incoming JSON data
+app.use(bodyParser.json());
+
+// Create connection to MySQL database
+const db = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',    // Your MySQL username
+    password: '',    // Your MySQL password
+    database: 'attendance_db' // Your database name
+});
+
+// Connect to MySQL
+db.connect((err) => {
+    if (err) {
+        console.error('Database connection failed: ' + err.stack);
+        return;
+    }
+    console.log('Connected to MySQL database');
+});
+
+// Route to handle form submissions
+app.post('/submit', (req, res) => {
+    const { employee_name, attendance_date, status } = req.body;
+
+    // Insert form data into the database
+    const query = 'INSERT INTO attendance (employee_name, attendance_date, status) VALUES (?, ?, ?)';
+    db.query(query, [employee_name, attendance_date, status], (err, result) => {
+        if (err) {
+            return res.status(500).json({ message: 'Error saving attendance record' });
+        }
+        res.status(200).json({ message: 'Attendance record saved successfully!' });
+    });
+});
+
+// Start the server
+const port = 3000;
+app.listen(port, () => {
+    console.log(`Server running on http://localhost:${port}`);
+});
+
+</script>

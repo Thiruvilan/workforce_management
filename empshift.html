@@ -1,0 +1,226 @@
+<style>
+    body {
+        font-family: 'Minion Pro', serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #f5efeb;
+    }
+    
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #2f4156;
+        color: white;
+        padding: 10px 20px;
+    }
+    
+    header .logo {
+        height: 50px;
+    }
+    
+    nav ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+    }
+    
+    nav ul li {
+        margin: 0 15px;
+    }
+    
+    nav ul li a {
+        color: white;
+        text-decoration: none;
+    }
+    
+    h1, h2 {
+        color: #2f4156;
+    }
+    
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+    }
+    
+    table, th, td {
+        border: 1px solid #c8d9e6;
+    }
+    
+    th, td {
+        padding: 10px;
+        text-align: left;
+    }
+    
+    th {
+        background-color: #567c8d;
+        color: white;
+    }
+    
+    button {
+        background-color: #567c8d;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        cursor: pointer;
+    }
+    
+    button:hover {
+        background-color: #2f4156;
+    }
+    
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.4);
+    }
+    
+    .modal-content {
+        background-color: #ffffff;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+    }
+    
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+    
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    
+    footer {
+        margin-top: 20px;
+        text-align: center;
+        color: #2f4156;
+    }
+</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Shift Schedule</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Minion+Pro:wght@400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <img src="logo.png" alt="Company Logo" class="logo">
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Your Schedule</a></li>
+                <li><a href="#">Leave Requests</a></li>
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">Help</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Your Shift Schedule</h1>
+        <h2>Current Week: September 18 - September 24</h2>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Shift Start</th>
+                    <th>Shift End</th>
+                    <th>Break Time</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Mon, Sep 18</td>
+                    <td>9:00 AM</td>
+                    <td>5:00 PM</td>
+                    <td>1 Hour</td>
+                    <td>Confirmed</td>
+                    <td><button onclick="openLeaveRequestModal()">Request Leave</button></td>
+                </tr>
+                <tr>
+                    <td>Tue, Sep 19</td>
+                    <td>12:00 PM</td>
+                    <td>8:00 PM</td>
+                    <td>30 Min</td>
+                    <td>Confirmed</td>
+                    <td><button onclick="openLeaveRequestModal()">Request Leave</button></td>
+                </tr>
+                <tr>
+                    <td>Wed, Sep 20</td>
+                    <td>Off</td>
+                    <td></td>
+                    <td></td>
+                    <td>Not Scheduled</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Thu, Sep 21</td>
+                    <td>10:00 AM</td>
+                    <td>6:00 PM</td>
+                    <td>1 Hour</td>
+                    <td>Confirmed</td>
+                    <td><button onclick="openLeaveRequestModal()">Request Leave</button></td>
+                </tr>
+                <tr>
+                    <td>Fri, Sep 22</td>
+                    <td>8:00 AM</td>
+                    <td>4:00 PM</td>
+                    <td>30 Min</td>
+                    <td>Confirmed</td>
+                    <td><button onclick="openLeaveRequestModal()">Request Leave</button></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div id="leaveRequestModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeLeaveRequestModal()">&times;</span>
+                <h2>Request Leave</h2>
+                <form>
+                    <label for="leaveType">Leave Type:</label>
+                    <select id="leaveType">
+                        <option value="sick">Sick Leave</option>
+                        <option value="vacation">Vacation</option>
+                        <option value="personal">Personal Leave</option>
+                    </select>
+                    <label for="startDate">Start Date:</label>
+                    <input type="date" id="startDate" required>
+                    <label for="endDate">End Date:</label>
+                    <input type="date" id="endDate" required>
+                    <label for="reason">Reason:</label>
+                    <textarea id="reason" required></textarea>
+                    <button type="submit">Submit Leave Request</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+       
+        <button onclick="logout()">Logout</button>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

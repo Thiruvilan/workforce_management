@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shift Scheduling System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #5a5a8b;
+        }
+
+        section {
+            margin-top: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        input, button {
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background-color: #5a5a8b;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #4c4c77;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Shift Scheduling System</h1>
+
+        <!-- Add Employee Form -->
+        <section>
+            <h2>Add Employee</h2>
+            <form id="addEmployeeForm">
+                <input type="text" id="name" placeholder="Name" required>
+                <input type="text" id="role" placeholder="Role" required>
+                <input type="number" id="skillLevel" placeholder="Skill Level" required>
+                <input type="time" id="availabilityStart" required>
+                <input type="time" id="availabilityEnd" required>
+                <button type="submit">Add Employee</button>
+            </form>
+        </section>
+
+        <!-- Auto Schedule Shift Form -->
+        <section>
+            <h2>Auto Schedule Shift</h2>
+            <form id="autoScheduleForm">
+                <input type="datetime-local" id="startTime" required>
+                <input type="datetime-local" id="endTime" required>
+                <button type="submit">Schedule Shift</button>
+            </form>
+        </section>
+
+        <!-- Shift Report Form -->
+        <section>
+            <h2>Employee Shift Report</h2>
+            <form id="reportForm">
+                <input type="number" id="employeeId" placeholder="Employee ID" required>
+                <button type="submit">Get Report</button>
+            </form>
+            <div id="reportResult"></div>
+        </section>
+    </div>
+
+    <script>
+        document.getElementById('addEmployeeForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const role = document.getElementById('role').value;
+            const skillLevel = document.getElementById('skillLevel').value;
+            const availabilityStart = document.getElementById('availabilityStart').value;
+            const availabilityEnd = document.getElementById('availabilityEnd').value;
+
+            const response = await fetch('/add_employee', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, role, skillLevel, availabilityStart, availabilityEnd })
+            });
+
+            const result = await response.json();
+            alert(result.message);
+        });
+
+        document.getElementById('autoScheduleForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const startTime = document.getElementById('startTime').value;
+            const endTime = document.getElementById('endTime').value;
+
+            const response = await fetch('/auto_schedule_shifts', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ startTime, endTime })
+            });
+
+            const result = await response.json();
+            alert(result.message);
+        });
+      

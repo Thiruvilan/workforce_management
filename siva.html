@@ -1,0 +1,87 @@
+<style>
+   body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 20px;
+}
+
+.profile-view-container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px;
+  margin: 0 auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+}
+
+.profile-details {
+  background-color: #f9f9f9;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+p {
+  font-size: 18px;
+}
+
+#message {
+  margin-top: 20px;
+  font-size: 16px;
+  color: red;
+}
+
+
+</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View User Profile</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="profile-view-container">
+    <h1>User Profile</h1>
+
+    <div class="profile-details">
+      <p><strong>Name:</strong> <span id="profile-name"></span></p>
+      <p><strong>Email:</strong> <span id="profile-email"></span></p>
+      <p><strong>Phone:</strong> <span id="profile-phone"></span></p>
+    </div>
+
+    <div id="message"></div>
+  </div>
+
+  <script src="viewProfile.js"></script>
+</body>
+</html>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+  // Fetch profile data from the backend
+  fetch('/api/profile')
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        document.getElementById('profile-name').innerText = data.profile.name;
+        document.getElementById('profile-email').innerText = data.profile.email;
+        document.getElementById('profile-phone').innerText = data.profile.phone;
+      } else {
+        document.getElementById('message').innerText = 'Profile not found.';
+      }
+    })
+    .catch(error => {
+      document.getElementById('message').innerText = 'Error fetching profile.';
+      console.error('Error:', error);
+    });
+});
+
+
+</script>

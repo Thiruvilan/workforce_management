@@ -1,0 +1,103 @@
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    width: 100%;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 20px;
+    position: relative;
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.icon {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 10px;
+}
+
+h3 {
+    margin: 10px 0;
+}
+
+.view-button {
+    display: inline-block;
+    background-color: #2196F3;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.view-button:hover {
+    background-color: #1976D2;
+}
+</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="dashboard">
+        <div class="card" id="profile">
+            <img src="icons/profile.png" alt="Profile Icon" class="icon">
+            <h3>Profile</h3>
+            <a href="profile.html" class="view-button">View</a>
+        </div>
+        <div class="card" id="attendance">
+            <img src="icons/attendance.png" alt="Attendance Icon" class="icon">
+            <h3>Attendance Tracking</h3>
+            <a href="attendance.html" class="view-button">View</a>
+        </div>
+        <div class="card" id="scheduling">
+            <img src="icons/scheduling.png" alt="Scheduling Icon" class="icon">
+            <h3>Shift Scheduling</h3>
+            <a href="scheduling.html" class="view-button">View</a>
+        </div>
+        <div class="card" id="payroll">
+            <img src="icons/payroll.png" alt="Payroll Icon" class="icon">
+            <h3>Payroll</h3>
+            <a href="payroll.html" class="view-button">View</a>
+        </div>
+        <div class="card" id="settings">
+            <img src="icons/settings.png" alt="Settings Icon" class="icon">
+            <h3>Settings</h3>
+            <a href="settings.html" class="view-button">View</a>
+        </div>
+        <div class="card" id="notifications">
+            <img src="icons/notifications.png" alt="Notifications Icon" class="icon">
+            <h3>Notifications</h3>
+            <a href="notifications.html" class="view-button">View</a>
+        </div>
+    </div>
+</body>
+</html>

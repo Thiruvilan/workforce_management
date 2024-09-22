@@ -1,0 +1,143 @@
+<style>
+    body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.progress-container {
+    width: 80%;
+    max-width: 800px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+}
+
+.progress-container h1 {
+    margin: 0;
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.progress-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.progress-item {
+    flex: 1;
+    padding: 20px;
+    text-align: center;
+}
+
+.progress-item h3 {
+    margin: 0;
+    font-size: 1.5em;
+}
+
+.progress-item p {
+    font-size: 1.2em;
+    margin: 10px 0;
+}
+
+.progress-bar {
+    background: #e0e0e0;
+    border-radius: 5px;
+    height: 10px;
+    width: 100%;
+    margin-top: 10px;
+    position: relative;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    border-radius: 5px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: width 0.4s ease;
+}
+
+#earnings-bar {
+    background: #28a745; /* Green */
+}
+
+#hours-bar {
+    background: #17a2b8; /* Blue */
+}
+
+.divider {
+    width: 2px;
+    background: #ddd;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Progress</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body> 
+    <div class="progress-container">
+        <h1>My Progress</h1>
+        <div class="progress-box">
+            <div class="progress-item">
+                <h3>Earnings</h3>
+                <p id="earnings">Total Earnings: $0.00</p>
+                <div class="progress-bar">
+                    <div class="progress-bar-fill" id="earnings-bar"></div>
+                </div>
+            </div>
+            <div class="divider"></div>
+            <div class="progress-item">
+                <h3>Working Hours</h3>
+                <p id="working-hours">Total Hours: 0</p>
+                <div class="progress-bar">
+                    <div class="progress-bar-fill" id="hours-bar"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+    function updateProgressBars(earnings, hours) {
+        const earningsBar = document.getElementById('earnings-bar');
+        const hoursBar = document.getElementById('hours-bar');
+
+        // Example calculations - replace with actual values or data from an API
+        const earningsPercentage = Math.min(100, earnings / 1000 * 100); // Assuming 1000 is the max for 100%
+        const hoursPercentage = Math.min(100, hours / 100 * 100); // Assuming 100 is the max for 100%
+
+        earningsBar.style.width = ${earningsPercentage}%;
+        hoursBar.style.width = ${hoursPercentage}%;
+
+        // Update text
+        document.getElementById('earnings').textContent = Total Earnings: $${earnings.toFixed(2)};
+        document.getElementById('working-hours').textContent = Total Hours: ${hours};
+    }
+
+    // Example usage
+    updateProgressBars(500, 40); // Example values
+});
+</script>

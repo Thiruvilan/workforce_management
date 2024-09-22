@@ -1,0 +1,183 @@
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f7f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #2f4156;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+}
+
+main {
+    padding: 20px;
+}
+
+section {
+    margin-bottom: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+h2 {
+    margin-top: 0;
+    font-size: 1.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+table th {
+    background-color: #f2f2f2;
+}
+
+button {
+    background-color: #2f4156;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+button:hover {
+    background-color: #2f4156;
+}
+
+input[type="number"], input[type="text"] {
+    width: calc(100% - 22px);
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 1em;
+}
+
+input[readonly] {
+    background-color: #f2f2f2;
+}
+
+.chart-container {
+    height: 200px;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+}
+</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payroll Management System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="https://img.icons8.com/material-outlined/24/financial-data.png"/>
+</head>
+<body>
+    <header>
+        <h1>Payroll Management System</h1>
+    </header>
+
+    <main>
+        <section class="employee-list">
+            <h2>Employee List</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Position</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="employee-table-body">
+                    <!-- Employee rows will be inserted here by JavaScript -->
+                </tbody>
+            </table>
+        </section>
+
+        <section class="payroll-form">
+            <h2>Manage Payroll</h2>
+            <form id="payroll-form">
+                <div>
+                    <label for="employee-id">Employee ID:</label>
+                    <input type="text" id="employee-id" required>
+                </div>
+                <div>
+                    <label for="salary">Salary:</label>
+                    <input type="number" id="salary" required>
+                </div>
+                <button type="button" onclick="calculateNetPay()">Calculate Net Pay</button>
+                <div>
+                    <label for="tax">Tax:</label>
+                    <input type="number" id="tax" readonly>
+                </div>
+                <div>
+                    <label for="net-pay">Net Pay:</label>
+                    <input type="number" id="net-pay" readonly>
+                </div>
+                <button type="submit">Save Payroll</button>
+            </form>
+        </section>
+
+        <section class="payroll-report">
+            <h2>Payroll Reports</h2>
+            <div class="chart-container">
+                <!-- Placeholder for chart -->
+                <p>Chart will be displayed here</p>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Month</th>
+                        <th>Total Payroll</th>
+                    </tr>
+                </thead>
+                <tbody id="report-table-body">
+                    <!-- Report rows will be inserted here by JavaScript -->
+                </tbody>
+            </table>
+        </section>
+
+        <section class="tax-calculator">
+            <h2>Tax Calculator</h2>
+            <div>
+                <label for="calc-salary">Salary:</label>
+                <input type="number" id="calc-salary">
+            </div>
+            <button type="button" onclick="calculateTax()">Calculate Tax</button>
+            <div>
+                <label for="calc-tax">Tax:</label>
+                <input type="number" id="calc-tax" readonly>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

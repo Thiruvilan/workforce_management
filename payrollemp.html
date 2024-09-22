@@ -1,0 +1,173 @@
+<style>
+    body {
+        font-family: 'Minion Pro', serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #f5efeb;
+    }
+    
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #2f4156;
+        color: white;
+        padding: 10px 20px;
+    }
+    
+    header .logo {
+        height: 50px;
+    }
+    
+    nav ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+    }
+    
+    nav ul li {
+        margin: 0 15px;
+    }
+    
+    nav ul li a {
+        color: white;
+        text-decoration: none;
+    }
+    
+    h1, h2 {
+        color: #2f4156;
+    }
+    
+    .payroll-details, .payment-history {
+        margin: 20px 0;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
+    
+    table, th, td {
+        border: 1px solid #c8d9e6;
+    }
+    
+    th, td {
+        padding: 10px;
+        text-align: left;
+    }
+    
+    th {
+        background-color: #567c8d;
+        color: white;
+    }
+    
+    footer {
+        margin-top: 20px;
+        text-align: center;
+        color: #2f4156;
+    }
+    
+    footer a {
+        color: #567c8d;
+        text-decoration: none;
+    }
+    
+    footer a:hover {
+        text-decoration: underline;
+    }
+</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payroll Page</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Minion+Pro:wght@400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <img src="logo.png" alt="Company Logo" class="logo">
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Schedule</a></li>
+                <li><a href="#">Payroll</a></li>
+                <li><a href="#">Leave Requests</a></li>
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">Help</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Payroll Information</h1>
+
+        <section class="payroll-details">
+            <h2>Current Pay Period: September 1 - September 15, 2024</h2>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>Employee Name:</td>
+                        <td>John Doe</td>
+                    </tr>
+                    <tr>
+                        <td>Employee ID:</td>
+                        <td>12345</td>
+                    </tr>
+                    <tr>
+                        <td>Position:</td>
+                        <td>Software Engineer</td>
+                    </tr>
+                    <tr>
+                        <td>Pay Rate:</td>
+                        <td>$30.00/hour</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="payment-history">
+            <h2>Payment History</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pay Date</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>September 15, 2024</td>
+                        <td>$1200.00</td>
+                        <td>Paid</td>
+                    </tr>
+                    <tr>
+                        <td>August 31, 2024</td>
+                        <td>$1400.00</td>
+                        <td>Paid</td>
+                    </tr>
+                    <tr>
+                        <td>August 15, 2024</td>
+                        <td>$1300.00</td>
+                        <td>Paid</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <footer>
+            <p>For questions about your payroll, please contact HR: <a href="mailto:hr@company.com">hr@company.com</a></p>
+        </footer>
+    </main>
+    
+    <script src="script.js"></script>
+</body>
+</html>

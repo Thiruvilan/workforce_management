@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employer Shift Scheduling</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff; /* Alice blue background */
+            overflow-x: hidden;
+        }
+        .container {
+            width: 90%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            color: #333;
+        }
+        .schedule-table, .report-box, .holiday-box {
+            background-color: #ffffff; /* White background for clarity */
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            padding: 15px;
+            position: relative;
+        }
+        .schedule-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .schedule-table th, .schedule-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .schedule-table th {
+            background-color: #87CEEB; /* Skyblue for header */
+            color: white;
+        }
+        .schedule-table td {
+            background-color: #f9f9f9;
+        }
+        .schedule-table button {
+            padding: 5px 10px;
+            border: none;
+            background-color: #87CEEB;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .schedule-table button:hover {
+            background-color: #00BFFF;
+        }
+        .report-box h2, .holiday-box h2 {
+            margin-top: 0;
+            color: #333;
+        }
+        .report-box p, .holiday-box p {
+            margin: 5px 0;
+        }
+        .report-box .icon, .holiday-box .icon {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .calendar-overlay {
+            display: none;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+        .calendar-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 900px;
+            position: relative;
+        }
+        .calendar-container .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .calendar-container h2 {
+            margin-top: 0;
+            color: #333;
+        }
+        .calendar {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .calendar iframe {
+            border: none;
+            width: 100%;
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Employer Shift Scheduling</h1>
+        </div>
+
+        <!-- Schedule Table -->
+        <div class="schedule-table">
+            <h2>Shift Schedule</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Check-In Time</th>
+                        <th>Check-Out Time</th>
+                        <th>Employee</th>
+                        <th>Shift</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2024-09-16</td>
+                        <td>09:00</td>
+                        <td>17:00</td>
+                        <td>John Doe</td>
+                        <td>Day Shift</td>
+                        <td><button class="book-shift" data-date="2024-09-16" data-checkin="09:00" data-checkout="17:00">Book Shift</button></td>
+                    </tr>
+                    <tr>
+                        <td>2024-09-16</td>
+                        <td>17:00</td>
+                        <td>01:00</td>
+                        <td>Jane Smith</td>
+                        <td>Night Shift</td>
+                        <td><button class="book-shift" data-date="2024-09-16" data-checkin="17:00" data-checkout="01:00">Book Shift</button></td>
+                    </tr>
+                    <!-- Add more rows as needed -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Shift Report Boxes -->
+        <div class="report-box weekly">
+            <h2>Weekly Shift Report <i class="fas fa-calendar-week icon" id="weekly-report-icon"></i></h2>
+            <p><strong>Total Shifts:</strong> 15</p>
+            <p><strong>Completed Shifts:</strong> 12</p>
+            <p><strong>Pending Shifts:</strong> 3</p>
+        </div>
+
+        <div class="report-box monthly">
+            <h2>Monthly Shift Report <i class="fas fa-calendar-alt icon" id="monthly-report-icon"></i></h2>
+            <p><strong>Total Shifts:</strong> 60</p>
+            <p><strong>Completed Shifts:</strong> 45</p>
+            <p><strong>Pending Shifts:</strong> 15</p>
+        </div>
+
+        <!-- Holidays Box -->
+        <div class="holiday-box">
+            <h2>Holidays <i class="fas fa-gift icon"></i></h2>
+            <div class="holiday-item">
+                <i class="fas fa-calendar-day"></i>
+                <p>2024-12-25: Christmas Day</p>
+            </div>
+            <div class="holiday-item">
+                <i class="fas fa-calendar-day"></i>
+                <p>2024-11-28: Thanksgiving</p>
+            </div>
+            <!-- Add more holidays as needed -->
+        </div>
+
+        <!-- Calendar Overlay -->
+        <div class="calendar-overlay" id="calendar-overlay">
+            <div class="calendar-container">
+                <span class="close" id="close-calendar">&times;</span>
+                <h2>Full Calendar View</h2>
+                <div class="calendar">
+                    <!-- Embed Google Calendar or similar -->
+                    <iframe src="https://calendar.google.com/calendar/embed?src=your_calendar_id&ctz=Your_Timezone" 
+                            frameborder="0" scrolling="no"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Open calendar view when report icons are clicked
+        document.getElementById('weekly-report-icon').addEventListener('click', function() {
+            document.getElementById('calendar-overlay').style.display = 'flex';
+        });
+        document.getElementById('monthly-report-icon').addEventListener('click', function() {
+            document.getElementById('calendar-overlay').style.display = 'flex';
+        });
+
+        // Open calendar view when a shift is booked
+        document.querySelectorAll('.book-shift').forEach(button => {
+            button.addEventListener('click', function() {
+                const date = this.getAttribute('data-date');
+                const checkin = this.getAttribute('data-checkin');
+                const checkout = this.getAttribute('data-checkout');
+                const confirmation = confirm(Are you sure you want to book the shift on ${date} from ${checkin} to ${checkout}?);
+                if (confirmation) {
+                    alert('Shift booked successfully!');
+                }
+            });
+        });
+
+        // Close calendar view
+        document.getElementById('close-calendar').addEventListener('click', function() {
+            document.getElementById('calendar-overlay').style.display = 'none';
+        });
+
+        // Close calendar view if clicking outside of the calendar container
+        window.addEventListener('click', function(event) {
+            if (event.target === document.getElementById('calendar-overlay')) {
+                document.getElementById('calendar-overlay').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
